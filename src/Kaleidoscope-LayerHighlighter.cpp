@@ -5,8 +5,6 @@
 
 #include <Kaleidoscope.h>
 
-byte LayerHighlighter::row = 255, LayerHighlighter::col = 255;
-
 kaleidoscope::EventHandlerResult LayerHighlighter::onSetup(void) {
   return kaleidoscope::EventHandlerResult::OK;
 }
@@ -23,8 +21,8 @@ kaleidoscope::EventHandlerResult LayerHighlighter::afterEachCycle() {
       Key layer_key = Layer.getKey(layer, r, c);
 
       if (k == LockLayer(layer)) {
-        row = r;
-        col = c;
+        cRGB lock_color = breath_compute(lockHue);
+        LEDControl.setCrgbAt(r, c, lock_color);
       }
 
       if ((k != layer_key) || (k == Key_NoKey)) {
@@ -34,12 +32,6 @@ kaleidoscope::EventHandlerResult LayerHighlighter::afterEachCycle() {
       }
     }
   }
-
-  if (row > ROWS || col > COLS)
-    return kaleidoscope::EventHandlerResult::OK;
-
-  cRGB lock_color = breath_compute(lockHue);
-  LEDControl.setCrgbAt(row, col, lock_color);
 
   return kaleidoscope::EventHandlerResult::OK;
 }
