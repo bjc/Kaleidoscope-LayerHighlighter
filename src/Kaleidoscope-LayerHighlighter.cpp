@@ -1,8 +1,6 @@
 #include "Kaleidoscope-LayerHighlighter.h"
 
 #include "Kaleidoscope-LEDControl.h"
-#include "LEDUtils.h"
-#include "layers.h"
 
 #include <Kaleidoscope.h>
 
