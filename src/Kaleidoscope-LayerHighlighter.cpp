@@ -9,8 +9,10 @@ kaleidoscope::EventHandlerResult LayerHighlighter::onSetup(void) {
 }
 
 kaleidoscope::EventHandlerResult LayerHighlighter::afterEachCycle() {
-  if (!Layer.isOn(layer))
+  if (!Layer.isOn(layer)) {
+    LEDControl.set_mode(LEDControl.get_mode_index());
     return kaleidoscope::EventHandlerResult::OK;
+  }
 
   LEDControl.set_mode(LEDControl.get_mode_index());
 
