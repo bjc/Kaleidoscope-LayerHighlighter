@@ -10,9 +10,11 @@ class LayerHighlighter : public kaleidoscope::Plugin {
   uint8_t lockHue;
 
   kaleidoscope::EventHandlerResult onSetup(void);
+  kaleidoscope::EventHandlerResult onKeyswitchEvent(Key &mapped_key, byte row, byte col, uint8_t key_state);
   kaleidoscope::EventHandlerResult afterEachCycle();
 
  private:
   const uint8_t layer;
   static byte row, col;
+  uint8_t savedLEDMode;
 };

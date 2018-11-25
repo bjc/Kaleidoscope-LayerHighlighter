@@ -8,13 +8,24 @@ kaleidoscope::EventHandlerResult LayerHighlighter::onSetup(void) {
   return kaleidoscope::EventHandlerResult::OK;
 }
 
-kaleidoscope::EventHandlerResult LayerHighlighter::afterEachCycle() {
-  if (!Layer.isOn(layer)) {
-    LEDControl.set_mode(LEDControl.get_mode_index());
+kaleidoscope::EventHandlerResult LayerHighlighter::onKeyswitchEvent(Key &mappedKey, byte row, byte col, uint8_t keyState) {
+  if (mappedKey != LockLayer(layer)) {
     return kaleidoscope::EventHandlerResult::OK;
   }
 
-  LEDControl.set_mode(LEDControl.get_mode_index());
+  if (keyToggledOn(keyState)) {
+    savedLEDMode = LEDControl.get_mode_index();
+  } else if (keyToggledOff(keyState)) {
+    LEDControl.set_mode(LEDControl.get_mode_index());
+  }
+
+  return kaleidoscope::EventHandlerResult::OK;
+}
+
+kaleidoscope::EventHandlerResult LayerHighlighter::afterEachCycle() {
+  if (!Layer.isOn(layer)) {
+    return kaleidoscope::EventHandlerResult::OK;
+  }
 
   for (uint8_t r = 0; r < ROWS; r++) {
     for (uint8_t c = 0; c < COLS; c++) {
