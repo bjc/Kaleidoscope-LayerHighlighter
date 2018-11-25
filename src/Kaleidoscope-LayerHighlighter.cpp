@@ -27,6 +27,7 @@ kaleidoscope::EventHandlerResult LayerHighlighter::afterEachCycle() {
     return kaleidoscope::EventHandlerResult::OK;
   }
 
+  LEDControl.set_mode(LEDControl.get_mode_index());
   for (uint8_t r = 0; r < ROWS; r++) {
     for (uint8_t c = 0; c < COLS; c++) {
       Key k = Layer.lookupOnActiveLayer(r, c);
