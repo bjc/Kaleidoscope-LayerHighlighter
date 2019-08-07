@@ -23,7 +23,7 @@ kaleidoscope::EventHandlerResult LayerHighlighter::onKeyswitchEvent(Key &mappedK
 }
 
 kaleidoscope::EventHandlerResult LayerHighlighter::afterEachCycle() {
-  if (!Layer.isOn(layer)) {
+  if (!Layer.isActive (layer)) {
     return kaleidoscope::EventHandlerResult::OK;
   }
 
@@ -31,7 +31,7 @@ kaleidoscope::EventHandlerResult LayerHighlighter::afterEachCycle() {
   for (uint8_t r = 0; r < ROWS; r++) {
     for (uint8_t c = 0; c < COLS; c++) {
       Key k = Layer.lookupOnActiveLayer(r, c);
-      Key layer_key = Layer.getKey(layer, r, c);
+      Key layer_key = Layer.getKey(layer, KeyAddr (r, c));
 
       if (k == LockLayer(layer)) {
         cRGB lock_color = breath_compute(lockHue);
