@@ -9,7 +9,8 @@ kaleidoscope::EventHandlerResult LayerHighlighter::onSetup(void) {
 }
 
 kaleidoscope::EventHandlerResult LayerHighlighter::onKeyswitchEvent(Key &mappedKey, byte row, byte col, uint8_t keyState) {
-  if (mappedKey != LockLayer(layer)) {
+  if (mappedKey != LockLayer(layer)
+      && mappedKey != ShiftToLayer (layer)) {
     return kaleidoscope::EventHandlerResult::OK;
   }
 
